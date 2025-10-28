@@ -1,0 +1,52 @@
+# Training configuration for Grouped model (3 syncs)
+# Group 4 layers together, 12 layers / 4 = 3 groups = 3 syncs
+# This is very aggressive - 87.5% reduction from baseline 24 syncs
+
+# Model architecture
+sync_strategy = 'grouped'
+attn_sync_layers = None  # Not used for grouped
+layers_per_group = 4  # 4 layers per group -> 3 groups -> 3 syncs
+
+# I/O
+out_dir = 'out-grouped-3sync'
+eval_interval = 500
+log_interval = 10
+eval_iters = 200
+eval_only = False
+always_save_checkpoint = False
+init_from = 'scratch'
+
+# Data
+dataset = 'openwebtext'
+gradient_accumulation_steps = 5 * 8
+batch_size = 12
+block_size = 1024
+
+# Model
+n_layer = 12
+n_head = 12
+n_embd = 768
+dropout = 0.0
+bias = False
+
+# AdamW optimizer
+learning_rate = 6e-4
+max_iters = 20000
+weight_decay = 1e-1
+beta1 = 0.9
+beta2 = 0.95
+grad_clip = 1.0
+
+# Learning rate decay
+decay_lr = True
+warmup_iters = 2000
+lr_decay_iters = 20000
+min_lr = 6e-5
+
+# DDP settings
+backend = 'nccl'
+
+# System
+device = 'cuda'
+dtype = 'bfloat16'
+compile = True
