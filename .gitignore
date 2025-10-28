@@ -10,3 +10,19 @@ __pycache__/
 input.txt
 env/
 venv/
+# Data files (too large for GitHub)
+data/*/train.bin
+data/*/val.bin
+*.bin
+
+# Checkpoint files
+out-*/
+out/
+*.pt
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Cache directories
+.cache/
